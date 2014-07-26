@@ -1,0 +1,17 @@
+{
+  "name": "name-me",
+  "version": "0.0.0",
+  "description": "Tool to come up with a free package name on NPM",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/calvinmetcalf/name-me.git"
+  },
+  "dependencies": {
+    "bluebird": "^2.2.2",
+    "random-word": "^0.1.0"
+  },
+  "bin": "index.js"
+}
