@@ -17,10 +17,9 @@ var yargs = require('yargs')
     .alias('h', 'help')
     .usage('Return a valid and free package name.\nUsage: $0 [name]')
     .example('$0', 'get random name')
-    .example('$0 name', 'get random name based on supplied name')
+    .example('$0 word', 'get random name based on word')
     .example('$0 -p', 'get random name and add to package.json')
-    .example('$0 -l 3', 'get random names with base words 3 letters or less')
-    .example('$0 --help', 'this help');
+    .example('$0 -l 3', 'get random names with base words 3 letters or less');
 var argv = yargs.argv
 if (argv.h) {
 	yargs.showHelp();
