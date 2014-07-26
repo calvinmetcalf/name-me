@@ -1,7 +1,10 @@
 'use strict';
 var crypto = require('crypto');
-
-var randomWord = require('random-word');
+var words = require('word-list-json');
+var uniqueRandom = require('unique-random')(0, words.length - 1);
+function randomWord() {
+	return words[uniqueRandom()];
+}
 var https = require('https');
 var Promise = require('bluebird');
 var randomBytes = Promise.promisify(crypto.randomBytes);
