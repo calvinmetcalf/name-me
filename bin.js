@@ -10,19 +10,23 @@ var yargs = require('yargs')
     .boolean('p')
     .alias('p', 'package')
     .describe('p', 'add to package.json')
+    .alias('l', 'length')
+    .describe('l', 'max length for base word')
+    .default('l', 5)
     .boolean('h')
     .alias('h', 'help')
     .usage('Return a valid and free package name.\nUsage: $0 [name]')
     .example('$0', 'get random name')
     .example('$0 name', 'get random name based on supplied name')
     .example('$0 -p', 'get random name and add to package.json')
+    .example('$0 -l 3', 'get random names with base words 3 letters or less')
     .example('$0 --help', 'this help');
 var argv = yargs.argv
 if (argv.h) {
 	yargs.showHelp();
 	process.exit();
 }
-randomName(argv._[0]).then(function (name) {
+randomName(argv._[0], false, argv.l).then(function (name) {
 	if (argv.p) {
 		return updateP(name).then(function () {
 			return name;

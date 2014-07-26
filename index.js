@@ -2,8 +2,15 @@
 var crypto = require('crypto');
 var words = require('word-list-json');
 var uniqueRandom = require('unique-random')(0, words.length - 1);
-function randomWord() {
-	return words[uniqueRandom()];
+function randomWord(len) {
+	var word = words[uniqueRandom()];
+	if (!len) {
+		return word;
+	}
+	while (word.length > len) {
+		word =  words[uniqueRandom()];
+	}
+	return word;
 }
 var https = require('https');
 var Promise = require('bluebird');
@@ -32,16 +39,16 @@ function improve(name) {
 		return name;
 	});
 }
-function randomName(name, append) {
+function randomName(name, append, len) {
 	if (append) {
 		name += '-'
-		name += randomWord();
 	} else if (!name) {
-		name = randomWord();
+		name = '';
 	}
+	name += randomWord(len);
 	return improve(name).then(function(name){
 		return checkName(name).then(function () {
-				return randomName(name, true);
+				return randomName(name, true, len);
 			}, function (e) {
 				if (e.statusCode === 404) {
 					return name;
