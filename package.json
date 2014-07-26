@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "bluebird": "^2.2.2",
-    "random-word": "^0.1.0"
+    "random-word": "^0.1.0",
+    "yargs": "^1.2.6"
   },
-  "bin": "index.js"
+  "bin": "bin.js"
 }

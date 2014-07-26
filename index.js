@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 'use strict';
 var crypto = require('crypto');
 
@@ -20,8 +18,7 @@ function checkName(name) {
 		}).on('error', reject);
 	});
 }
-function randomName() {
-	var name = randomWord();
+function improve(name) {
 	return randomBytes(1).then(function (buf) {
 		var num = buf.readUInt8(0);
 		if (num < 64) {
@@ -30,19 +27,25 @@ function randomName() {
 			name += '-js';
 		}
 		return name;
-	}).then(function(name){
+	});
+}
+function randomName(name, append) {
+	if (append) {
+		name += '-'
+		name += randomWord();
+	} else if (!name) {
+		name = randomWord();
+	}
+	return improve(name).then(function(name){
 		return checkName(name).then(function () {
-				return randomName();
+				return randomName(name, true);
 			}, function (e) {
 				if (e.statusCode === 404) {
-					console.log(name);
-					process.exit();
+					return name;
 				} else {
-					process.nextTick(function () {
-						throw e;	
-					});
+					throw e;
 				}
 			});
 	});
 }
-randomName();
+module.exports = randomName;
