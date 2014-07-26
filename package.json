@@ -1,6 +1,6 @@
 {
   "name": "name-me",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Tool to come up with a free package name on NPM",
   "main": "index.js",
   "author": "",
