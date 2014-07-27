@@ -1,20 +1,20 @@
 'use strict';
-var crypto = require('crypto');
 var words = require('word-list-json');
-var uniqueRandom = require('unique-random')(0, words.length - 1);
+var uniqueRandom = require('unique-random');
+var uniqueRandoms = {
+	full: uniqueRandom(0, words.length - 1)
+};
+Object.keys(words.lengths).forEach(function (len) {
+	uniqueRandoms[len] = uniqueRandom(0, words.lengths[len] - 1);
+});
 function randomWord(len) {
-	var word = words[uniqueRandom()];
-	if (!len) {
-		return word;
-	}
-	while (word.length > len) {
-		word =  words[uniqueRandom()];
-	}
+	len = len || 'full';
+	var word = words[uniqueRandoms[len]()];
 	return word;
 }
 var https = require('https');
 var Promise = require('bluebird');
-var randomBytes = Promise.promisify(crypto.randomBytes);
+var randomNumber = uniqueRandom(0, 3);
 
 var base = 'https://skimdb.npmjs.com/registry/';
 function checkName(name) {
@@ -29,15 +29,13 @@ function checkName(name) {
 	});
 }
 function improve(name) {
-	return randomBytes(1).then(function (buf) {
-		var num = buf.readUInt8(0);
-		if (num < 64) {
-			name = 'node-' + name;
-		} else if (num > 192) {
-			name += '-js';
-		}
-		return name;
-	});
+	var num = randomNumber();
+	if (num === 3) {
+		name = 'node-' + name;
+	} else if (num === 0) {
+		name += '-js';
+	}
+	return name;
 }
 function randomName(name, append, len) {
 	if (append) {
@@ -46,16 +44,15 @@ function randomName(name, append, len) {
 		name = '';
 	}
 	name += randomWord(len);
-	return improve(name).then(function(name){
-		return checkName(name).then(function () {
-				return randomName(name, true, len);
-			}, function (e) {
-				if (e.statusCode === 404) {
-					return name;
-				} else {
-					throw e;
-				}
-			});
-	});
+	name = improve(name);
+	return checkName(name).then(function () {
+			return randomName(name, true, len);
+		}, function (e) {
+			if (e.statusCode === 404) {
+				return name;
+			} else {
+				throw e;
+			}
+		});
 }
 module.exports = randomName;
