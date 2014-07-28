@@ -14,7 +14,7 @@ function randomWord(len) {
 }
 var https = require('https');
 var Promise = require('bluebird');
-var randomNumber = uniqueRandom(0, 3);
+var randomNumber = uniqueRandom(0, 6);
 
 var base = 'https://skimdb.npmjs.com/registry/';
 function checkName(name) {
@@ -30,9 +30,9 @@ function checkName(name) {
 }
 function improve(name, len) {
 	var num = randomNumber();
-	if (num === 3) {
+	if (num === 0) {
 		name = 'node-' + name;
-	} else if (num === 0) {
+	} else if (num === 1) {
 		name += '-js';
 	} else {
 		name += '-';
