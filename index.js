@@ -28,25 +28,22 @@ function checkName(name) {
 		}).on('error', reject);
 	});
 }
-function improve(name) {
+function improve(name, len) {
 	var num = randomNumber();
 	if (num === 3) {
 		name = 'node-' + name;
 	} else if (num === 0) {
 		name += '-js';
+	} else {
+		name += '-';
+		name += randomWord(len);
 	}
-	return name;
+	return randomName(name, len);
 }
-function randomName(name, append, len) {
-	if (append) {
-		name += '-'
-	} else if (!name) {
-		name = '';
-	}
-	name += randomWord(len);
-	name = improve(name);
+function randomName(name, len) {
+	name =  name || randomWord(len);
 	return checkName(name).then(function () {
-			return randomName(name, true, len);
+			return improve(name, len);
 		}, function (e) {
 			if (e.statusCode === 404) {
 				return name;

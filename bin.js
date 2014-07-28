@@ -25,7 +25,7 @@ if (argv.h) {
 	yargs.showHelp();
 	process.exit();
 }
-randomName(argv._[0], false, argv.l).then(function (name) {
+randomName(argv._[0], argv.l).then(function (name) {
 	if (argv.p) {
 		return updateP(name).then(function () {
 			return name;
