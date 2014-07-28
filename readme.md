@@ -16,8 +16,8 @@ takes an optional argument for a name to work with
 
 Options are 
 
-- -l/--length which sets a max length from the dictionary (default 6).
-- -p/--package which modifies the package.json of the current directory to use the generated name.
+- --length or -l which sets a max length from the dictionary (default 6).
+- --package or -p which modifies the package.json of the current directory to use the generated name.
 
 ## Examples:
 
@@ -29,6 +29,7 @@ ajax-js
 $ name-me -p
 # adds it to the package.js
 $ name-me -l 3
+node-oy
 ```
 
 # node
