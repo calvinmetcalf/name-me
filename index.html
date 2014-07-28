@@ -1,12 +1,121 @@
-<button type="button", id="click">Name Me</button>
-<div id="response"></div>
-<script src="bundle.js"></script>
-<script>
-  var button = document.getElementById('click');
-  var div = document.getElementById('response');
-  button.addEventListener('click', function () {
-    nameMe(5).then(function (r) {
-      div.innerText = r;
-    });
-  });
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>NPM Package Name Generator</title>
+    
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        text-align: center;
+      }
+
+      .site-wrapper {
+        display: table;
+        width: 100%;
+        height: 100%; /* For at least Firefox */
+        min-height: 100%;
+      }
+      .site-wrapper-inner {
+        display: table-cell;
+        vertical-align: top;
+      }
+      .cover-container {
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .inner {
+        padding: 30px;
+      }
+
+      .cover {
+        padding: 0 20px;
+      }
+      .cover .btn-lg {
+        padding: 10px 20px;
+        font-weight: bold;
+      }
+      
+      #package-name {
+        cursor: pointer;
+      }
+
+      .mastfoot {
+        color: #999;
+      }
+
+      @media (min-width: 768px) {
+        .masthead {
+          position: fixed;
+          top: 0;
+        }
+        .mastfoot {
+          position: fixed;
+          bottom: 0;
+        }
+        .site-wrapper-inner {
+          vertical-align: middle;
+        }
+        .masthead,
+        .mastfoot,
+        .cover-container {
+          width: 100%; /* Must be percentage or pixels for horizontal alignment */
+        }
+        #package-name {
+          font-size: 10em;
+          cursor: pointer;
+        }
+      }
+
+      @media (min-width: 992px) {
+        .masthead,
+        .mastfoot,
+        .cover-container {
+          width: 700px;
+        }
+      }
+      </style>
+  </head>
+
+  <body>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+        
+          <div class="inner cover">
+            <h1 id="package-name"></h1>
+          </div>
+          
+          <div class="mastfoot">
+            <div class="inner">
+              <p>An NPM package name generator by <a href="https://github.com/calvinmetcalf/name-me">@calvinmetcalf</a></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    
+    <script src="bundle.js"></script>
+    <script>
+      var packageName = document.getElementById('package-name');
+      
+      packageName.addEventListener('click', changeName);
+      changeName();
+      
+      function changeName() {
+        nameMe(5).then(function (r) {
+          packageName.innerText = r;
+        });
+      }
+    </script>
+  </body>
+</html>
