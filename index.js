@@ -6,6 +6,9 @@ var Promise = require('bluebird');
 var randomNumber = uniqueRandom(0, 3);
 
 var base = 'https://skimdb.npmjs.com/registry/';
+if (process.browser) {
+	base = 'https://skimdb.iriscouch.com/registry/';
+}
 function checkName(name) {
 	return new Promise (function (resolve, reject) {
 		if (inValid(name)) {
@@ -13,7 +16,7 @@ function checkName(name) {
 		}
 		https.get(base + name, function (res) {
 			res.on('data',function(){});
-			if (res.statusCode > 399) {
+			if (res.statusCode > 399 || res.statusCode < 200) {
 				return reject(res);
 			}
 			resolve();

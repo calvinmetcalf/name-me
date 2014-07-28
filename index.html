@@ -1,0 +1,12 @@
+<button type="button", id="click">Click for a Name</button>
+<div id="response"></div>
+<script src="bundle.js"></script>
+<script>
+  var button = document.getElementById('click');
+  var div = document.getElementById('response');
+  button.addEventListener('click', function () {
+    nameMe(5).then(function (r) {
+      div.innerText = r;
+    });
+  });
+</script>
