@@ -1,4 +1,4 @@
-name-me
+name-me [![Build Status](https://travis-ci.org/calvinmetcalf/name-me.svg)](https://travis-ci.org/calvinmetcalf/name-me)
 ===
 
 Comes up with a random name that is free on NPM.
@@ -7,18 +7,48 @@ Comes up with a random name that is free on NPM.
 npm install -g name-me
 ```
 
+# CLI
 
 ```bash
-Usage: name-me [name]
+name-me [name]
+```
+takes an optional argument for a name to work with
 
-Examples:
-  name-me           get random name
-  name-me word      get random name based on word
-  name-me -p        get random name and add to package.json
-  name-me -l 3      get random names with base words 3 letters or less
+Options are 
 
+- -l/--length which sets a max length from the dictionary (default 6).
+- -p/--package which modifies the package.json of the current directory to use the generated name.
 
-Options:
-  -p, --package  add to package.json     
-  -l, --length   max length for base word  [default: 5]
+## Examples:
+
+```
+$ name-me
+quipus
+$ name-me ajax
+ajax-js
+$ name-me -p
+# adds it to the package.js
+$ name-me -l 3
+```
+
+# node
+
+```js
+var nameMe = require('name-me');
+```
+
+takes 2 arguments both optional, a name to work with, which if available will be returned, or if not available will be 'improved' also takes a number which specifies max length of random words to get from the dictionary, returns a promise.
+
+```js
+nameMe().then(function (name) {
+  console.log(name);
+});
+nameMe(2).then(function (name) {
+  //build with max 3 letter words
+  console.log(name);
+});
+nameMe(ajax).then(function (name) {
+  //build around 'ajax' which isn't available
+  console.log(name);
+});
 ```

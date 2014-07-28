@@ -12,7 +12,7 @@ var yargs = require('yargs')
     .describe('p', 'add to package.json')
     .alias('l', 'length')
     .describe('l', 'max length for base word')
-    .default('l', 5)
+    .default('l', 6)
     .boolean('h')
     .alias('h', 'help')
     .usage('Return a valid and free package name.\nUsage: $0 [name]')
@@ -36,21 +36,24 @@ randomName(argv._[0], argv.l).then(function (name) {
 	console.log(name);
 	process.exit();
 }).catch(function (e) {
-	process.nextTick(function () {
-		throw e;
-	});
+	console.log(e);
+  process.exit(3);
 });
 function updatePackage(name, cb) {
 	var cwd = process.cwd();
-	fs.readFile(path.join(cwd, 'package.json'), {encoding:'utf8'}, function (err, data) {
+	fs.readFile(path.join(cwd, 'package.json'), {
+    encoding:'utf8'
+  }, function (err, data) {
 		if (err) {
-			return cb(new Error("no package.json"));
+			console.log('no package.json found');
+      process.exit(1);
 		}
 		var json;
 		try {
 			json = JSON.parse(data);
 		} catch(e) {
-			return cb(e);
+			console.log('error parsing pacage.json');
+      process.exit(2);
 		}
 		json.name = name;
 		fs.writeFile(path.join(cwd, 'package.json'), JSON.stringify(json, false, 4), cb);

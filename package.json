@@ -4,6 +4,9 @@
   "description": "Tool to come up with a free package name on NPM",
   "main": "index.js",
   "author": "",
+  "scripts": {
+    "test": "tape test.js"
+  },
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -12,8 +15,11 @@
   "dependencies": {
     "bluebird": "^2.2.2",
     "unique-random": "^0.1.1",
-    "word-list-json": "^0.2.0",
-    "yargs": "^1.2.6"
+    "yargs": "^1.2.6",
+    "random-word-by-length": "^0.1.0"
   },
-  "bin": "bin.js"
+  "bin": "bin.js",
+  "devDependencies": {
+    "tape": "^2.13.4"
+  }
 }
