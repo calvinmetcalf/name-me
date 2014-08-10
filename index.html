@@ -106,6 +106,7 @@
           
           <div class="mastfoot">
             <div class="inner">
+              <p id="links"></p>
               <p>An NPM package name generator by <a href="https://github.com/calvinmetcalf/name-me">@calvinmetcalf</a></p>
             </div>
           </div>
@@ -117,7 +118,9 @@
     <script src="bundle.js"></script>
     <script>
       var packageName = document.getElementById('package-name');
-      
+      var footer = document.getElementById('links');
+      var start = '<a target="_blank" href="https://www.namecheap.com/domains/registration/results.aspx?aff=72027&domain=';
+      var end = '">look for domain</a>';
       packageName.addEventListener('click', changeName);
       changeName();
       
@@ -125,6 +128,7 @@
         nameMe(5).then(function (r) {
           console.log('don\'t mind the 404, it is on purpose');
           packageName.innerHTML = r;
+          footer.innerHTML = start + r + end;
         });
       }
     </script>
