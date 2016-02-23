@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>NPM Package Name Generator</title>
-    
+
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <style>
       html,
@@ -43,7 +43,7 @@
         padding: 10px 20px;
         font-weight: bold;
       }
-      
+
       #package-name {
         cursor: pointer;
         /* Prevent selection when fast clicking on the name */
@@ -106,11 +106,11 @@
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
         <div class="cover-container">
-        
+
           <div class="inner cover">
             <h1 id="package-name"></h1>
           </div>
-          
+
           <div class="mastfoot">
             <div class="inner">
               <p id="links"></p>
@@ -121,7 +121,7 @@
         </div>
       </div>
     </div>
-    
+
     <script src="bundle.js"></script>
     <script>
       var packageName = document.getElementById('package-name');
@@ -130,9 +130,10 @@
       var end = '">look for domain</a>';
       packageName.addEventListener('click', changeName);
       changeName();
-      
+
       function changeName() {
-        nameMe(5).then(function (r) {
+
+        nameMe(~~(Math.random() * 3) + 3).then(function (r) {
           console.log('don\'t mind the 404, it is on purpose');
           packageName.innerHTML = r;
           footer.innerHTML = start + r + end;
