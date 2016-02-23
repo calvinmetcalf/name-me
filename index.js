@@ -7,7 +7,7 @@ var randomNumber = uniqueRandom(0, 3);
 
 var base = 'https://skimdb.npmjs.com/registry/';
 if (process.browser) {
-	base = 'https://skimdb.iriscouch.com/registry/';
+	base = 'https://kublai.cloudant.com/skimdb/';
 }
 function checkName(name) {
 	return new Promise (function (resolve, reject) {
@@ -28,7 +28,7 @@ function improve(name, len) {
 	if (num === 0 && name.slice(0, 5) !== 'node-') {
 		name = 'node-' + name;
 		return randomName(name, len);
-	} 
+	}
 	if (num === 1 && name.slice(-3) !== '-js') {
 		name += '-js';
 		return randomName(name, len);
@@ -40,7 +40,7 @@ function improve(name, len) {
 	name += '-';
 	name += randomWord(len);
 	return randomName(name, len);
-	
+
 }
 var inValidStart = /^[_\.]/;
 var noSlash = /[\/\\]/;
